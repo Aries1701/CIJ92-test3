@@ -10,9 +10,12 @@ export default function List() {
     setLists(jsonData.data);
   }, []);
 
-
   const handleMovieClick = (movie) => {
     setSelectedMovie(movie);
+  };
+
+  const handleUnselect = () => {
+    setSelectedMovie(null);
   };
 
   return (
@@ -21,21 +24,24 @@ export default function List() {
         <h2 className="title">Explore</h2>
         <h2 className="sub">What are you gonna watch today ?</h2>
 
-        
-      {selectedMovie && (
-        <div className="selected-movie">
-          <h2 className="title">Selected Movie</h2>
-          <div className="selected-movie-info">
-            <img src={selectedMovie.image} alt="" className="selected-movie-image" />
-            <div className="selected-movie-details">
-              <h3>{selectedMovie.movieName}</h3>
-              <p>{selectedMovie.description}</p>
-              <p>Episode :{selectedMovie.episode}</p>
+        {selectedMovie && (
+          <div className="selected-movie">
+            <h2 className="title">Selected Movie</h2>
+            <div className="selected-movie-info">
+              <img
+                src={selectedMovie.image}
+                alt=""
+                className="selected-movie-image"
+              />
+              <div className="selected-movie-details">
+                <h3>{selectedMovie.movieName}</h3>
+                <p>{selectedMovie.description}</p>
+                <p>Episode :{selectedMovie.episode}</p>
+                <button className="btn" onClick={handleUnselect}>Close</button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-
+        )}
 
         <div className="box2">
           {lists &&
@@ -56,10 +62,7 @@ export default function List() {
         {lists &&
           lists.map((data, index) => (
             <div className="" key={index}>
-              <div
-                className="movie-card"
-                onClick={() => handleMovieClick(data)} 
-              >
+              <div className="movie-card" onClick={() => handleMovieClick(data)}>
                 <img src={data.image} alt="" className="movie-image" />
                 <div className="episode-overlay">Episode {data.episode}</div>
                 <div className="movie-name">{data.movieName}</div>
@@ -67,8 +70,6 @@ export default function List() {
             </div>
           ))}
       </div>
-
-      
     </section>
   );
 }
